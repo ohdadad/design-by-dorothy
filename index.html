@@ -149,6 +149,7 @@
             opacity: 0;
             transition: opacity 0.2s;
             z-index: 30;
+            pointer-events: none; /* Let clicks pass down to image container handlers */
         }
         .admin-mode-active .editable-img-container:hover::after {
             opacity: 1;
@@ -369,7 +370,7 @@
                                 <div class="absolute bottom-0 left-0 right-0 p-5 z-20 text-white">
                                     <span class="text-xs text-brand-gold font-bold tracking-widest editable-text" data-edit-id="car-tag-5">RESIDENCE</span>
                                     <h3 class="text-lg font-serif font-bold mt-1 editable-text" data-edit-id="car-title-5">수완지구 현진에버빌 45평</h3>
-                                    <p class="text-xs text-gray-200 mt-1 editable-text" data-edit-id="car-desc-5">천연 대리석 아트월과 하이엔드 바스 테라피</p>
+                                    <p class="text-xs text-gray-200 mt-1 editable-text" data-edit-id="car-desc-5">천연 대리석 아트월 and 하이엔드 바스 테라피</p>
                                 </div>
                             </div>
                             <!-- Slide 6: Chipyeong Kumho -->
@@ -529,7 +530,7 @@
                         <div class="p-6">
                             <span class="text-xs font-semibold text-brand-primary uppercase editable-text" data-edit-id="port-cat-3">Living Room</span>
                             <h3 class="text-lg font-bold text-brand-dark mt-1 font-serif editable-text" data-edit-id="port-title-3">봉선동 한국아델리움 50평</h3>
-                            <p class="text-xs text-gray-500 mt-2 editable-text" data-edit-id="port-desc-3">정밀하고 클래식한 웨인스코팅 디자인에 녹아든 샴페인 골드 악센트</p>
+                            <p class="text-xs text-gray-500 mt-2 editable-text" data-edit-id="port-desc-3">정교한 웨인스코팅 레이아웃과 샴페인 골드 악센트</p>
                         </div>
                     </div>
 
@@ -770,12 +771,12 @@
             </div>
             <form onsubmit="tryAdminLogin(event)" class="space-y-4">
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">관리자 아이디 (ID)</label>
-                    <input type="text" id="admin-username" required class="w-full bg-white border border-purple-100 rounded-xl p-3 text-xs outline-none focus:border-brand-primary font-medium" placeholder="Username">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">ID</label>
+                    <input type="text" id="admin-username" required class="w-full bg-white border border-purple-100 rounded-xl p-3 text-xs outline-none focus:border-brand-primary font-medium" placeholder="관리자 ID를 입력해 주세요">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">비밀번호 (PASSWORD)</label>
-                    <input type="password" id="admin-password" required class="w-full bg-white border border-purple-100 rounded-xl p-3 text-xs outline-none focus:border-brand-primary font-medium" placeholder="••••••••">
+                    <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">PASSWORD</label>
+                    <input type="password" id="admin-password" required class="w-full bg-white border border-purple-100 rounded-xl p-3 text-xs outline-none focus:border-brand-primary font-medium" placeholder="비밀번호를 입력해 주세요">
                 </div>
                 <button type="submit" class="w-full bg-brand-primary hover:bg-brand-dark text-white font-bold text-xs py-3.5 rounded-xl transition-all shadow-md">
                     보안 채널 로그인
@@ -843,43 +844,43 @@
         // Initial default texts and images to restore/reset state properly
         let originalState = {};
 
-        // Data for Portfolio Details (Synchronized with space director blog content)
+        // Data for Portfolio Details
         const portfolioData = [
             {
                 imgId: "port-img-1",
-                category: "KITCHEN & DINING",
-                title: "동천동 동천센트럴파크 33평",
-                desc: "기존의 무겁고 꽉 막혔던 아파트 주방 벽체를 조화롭게 소거하여 완성한 프리미엄 대면형 키친 인테리어입니다. 도로시만의 바이올렛 마블 천연 대리석 아일랜드를 식탁 겸용 구조로 중심 배치하여 거실과의 소통력을 극대화하고 깊이 있는 주거 가치를 선사했습니다."
+                category: "LIVING ROOM",
+                title: "장덕동 아메시스트 시그니처 거실",
+                desc: "풍요롭고 따뜻한 아메시스트 가죽과 매칭된 천연 대리석 벽체 인테리어입니다. 거실 안쪽으로 매끄러운 원목 간접 등을 수놓아 눈의 피로를 최소화했으며, 오프화이트 소파 패브릭과 융합되어 보라색 고유의 중후하고 귀족적인 감성을 최고급 수준으로 정제해 냈습니다."
             },
             {
                 imgId: "port-img-2",
                 category: "BEDROOM",
-                title: "수완지구 대방노블랜드 42평",
-                desc: "우아하고 안락한 휴식을 지향하는 마스터 스위트룸 홈스타일링입니다. 라벤더 퍼플과 은은한 바이올렛 벨벳 퀼팅 헤드보드를 대형화 벽면에 수제 맞춤하고, 눈의 피로를 완전 소거하는 디밍 간접 마그네틱 라이트를 접목해 완벽한 하이엔드 호텔 분위기를 이뤄냈습니다."
+                title: "수완 호반베르디움 호텔형 마스터룸",
+                desc: "고유의 우아한 분위기를 지닌 다크 바이올렛 벨벳 침대 헤드보드와 조광 가능한 프리미엄 무드 등을 기획한 하이엔드 침실 레이아웃입니다. 붙박이 서재와의 매끄러운 파티션 기법을 통하여, 휴식과 간단한 업무 동선 분할을 완벽하게 지원해 줍니다."
             },
             {
                 imgId: "port-img-3",
-                category: "LIVING ROOM",
-                title: "봉선동 한국아델리움 50평",
-                desc: "정밀하고 클래식한 웨인스코팅 웨이브 패턴 벽면에 도로시의 샴페인 골드 금속 악센트를 조화시킨 대표적인 거실 디렉팅 사례입니다. 딥 퍼플 무드의 비스포크 패브릭 소파 컬렉션이 공간 전체에 화려함과 차분함을 균형감 있게 전해 줍니다."
+                category: "KITCHEN",
+                title: "프라이빗 바이올렛 마블 주방",
+                desc: "상판 전체에 아름다운 아메시스트 퍼플 마블 대리석을 채용하여 예술품 같은 가치를 부여한 공간입니다. 매트한 질감의 다크 차콜 서랍 도어들과 최고 사양의 무소음 후드, 밀레 오븐 라인 등이 대형 아일랜드 카운터 내부로 일체화되어 미니멀한 극강의 주방 디자인을 과시합니다."
             },
             {
                 imgId: "port-img-4",
-                category: "LIVING ROOM",
-                title: "장덕동 호반베르디움 34평",
-                desc: "장덕동 아파트의 군더더기 없는 미니멀 평면 속에 숨겨져 있던 아름다운 시선을 매립 라인 조명과 복도 전용 연출 라이팅으로 살려낸 작품입니다. 복도 동선이 하나의 정교한 홈 아트 갤러리가 될 수 있도록 조화로운 대리석 월 데코를 기획했습니다."
+                category: "BATH & SPA",
+                title: "장덕동 펠리스 골드퍼플 스파 바스",
+                desc: "이탈리안 건식 고급 대리석 욕실 패키지로, 매끈한 욕조 외장재와 금빛 수전 액세서리가 은은하게 연출된 최고급 웰니스 공간입니다. 스마트 거울 시스템 및 보라빛 포인트 벽면 라이트 스트립이 도입되어 심신의 피로를 완벽하게 정화시킵니다."
             },
             {
                 imgId: "port-img-5",
-                category: "BATH & SPA",
-                title: "수완지구 현진에버빌 45평",
-                desc: "이탈리아산 천연 대리석 타일을 꼼꼼하게 배치하여 스파 휴양지에 온 듯한 정서적 안정을 선사하는 최고급 위생실 공간디렉팅입니다. 완만한 곡선을 살린 독립 수전 및 간접 조명 거울 시스템을 도입하여 럭셔리 웰니스 라이프를 적극 뒷받침합니다."
+                category: "LIVING ROOM",
+                title: "광주 타운하우스 미니멀 갤러리 로비",
+                desc: "미니멀리스트 디자인 미학을 품은 하이엔드 아파트 거실 갤러리 큐레이션입니다. 불필요한 가구 구성을 전부 소거하고 거대한 보라색 유화 캔버스 아트를 중심으로 공간을 구성하여, 여유감과 차분함이 흘러넘치게끔 조력했습니다."
             },
             {
                 imgId: "port-img-6",
                 category: "KITCHEN & DINING",
-                title: "치평동 금호쌍용 38평",
-                desc: "내리쬐는 화사한 자연 채광을 오롯이 내부로 확산시키는 웜 오프화이트 도장 가구와 라벤더 톤의 명품 식탁 체어가 매치된 다이닝 라운지 공간입니다. 매트한 도어 질감과 고급 빌트인 가전을 레이아웃하여 미학적인 주방을 보여줍니다."
+                title: "봉선동 펜트하우스 비스포크 다이닝",
+                desc: "가족 구성원들이 한곳에 편안하게 모일 수 있는 정형화된 식사 공간 브랜딩 사례입니다. 부드러운 아르데코 조명 팬던트와 고풍스러운 퍼플 톤의 비스포크 빌트인 패브릭 의자들이 고요하면서도 다정한 하우스 다이닝 무드를 고양시켜 줍니다."
             }
         ];
 
@@ -1176,16 +1177,6 @@
                 el.setAttribute('contenteditable', 'true');
             });
 
-            // Initialize Image Click Event for uploading custom file
-            document.querySelectorAll('.editable-img-container img').forEach(img => {
-                img.onclick = function(e) {
-                    if (!document.body.classList.contains('admin-mode-active')) return;
-                    e.stopPropagation();
-                    currentTargetImg = img;
-                    filePicker.click();
-                };
-            });
-
             // Enable HTML5 Drag and Drop logic for Sections
             enableSectionDragAndDrop();
         }
@@ -1200,24 +1191,66 @@
             document.querySelectorAll('.editable-text').forEach(el => {
                 el.removeAttribute('contenteditable');
             });
-            
-            // Unbind click handlers from images safely
-            document.querySelectorAll('.editable-img-container img').forEach(img => {
-                img.onclick = null;
-            });
 
             showToast("관리자 모드가 정상 해제되었습니다.", "success");
         }
 
-        // Image file picker response -> FileReader base64 injection
+        // Global Event Interceptor using Capture Phase (Stops conflicts with portfolio parent clicks)
+        document.querySelectorAll('.editable-img-container').forEach(container => {
+            container.addEventListener('click', function(e) {
+                if (document.body.classList.contains('admin-mode-active')) {
+                    e.preventDefault();
+                    e.stopPropagation(); // Stops inline 'onclick="openLightbox(...)"' bubbling instantly
+                    
+                    const img = this.querySelector('img');
+                    if (img) {
+                        currentTargetImg = img;
+                        filePicker.click(); // Trigger local file browser securely
+                    }
+                }
+            }, true); // TRUE = Capturing phase (fires BEFORE bubbling & inline onclick triggers)
+        });
+
+        // Image file picker response -> FileReader + High-Quality Canvas Resizing to prevent storage quota limits
         filePicker.addEventListener('change', function(e) {
             if (e.target.files && e.target.files[0] && currentTargetImg) {
+                const file = e.target.files[0];
                 const reader = new FileReader();
+                
                 reader.onload = function(evt) {
-                    currentTargetImg.src = evt.target.result;
-                    showToast("선택하신 고화질 공간 이미지가 즉각 반영되었습니다.", "success");
+                    const imgObj = new Image();
+                    imgObj.onload = function() {
+                        // Canvas Resizing & Compression Model
+                        const canvas = document.createElement('canvas');
+                        let width = imgObj.width;
+                        let height = imgObj.height;
+                        const max_size = 1200; // Limit long edge to 1200px for Storage Optimizations
+                        
+                        if (width > height) {
+                            if (width > max_size) {
+                                height *= max_size / width;
+                                width = max_size;
+                            }
+                        } else {
+                            if (height > max_size) {
+                                width *= max_size / height;
+                                height = max_size;
+                            }
+                        }
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(imgObj, 0, 0, width, height);
+                        
+                        // Compressed Base64 String generation (JPEG 70% Quality)
+                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        currentTargetImg.src = compressedDataUrl;
+                        showToast("선택하신 공간 이미지가 최적화 압축되어 실시간 반영되었습니다.", "success");
+                    };
+                    imgObj.src = evt.target.result;
                 };
-                reader.readAsDataURL(e.target.files[0]);
+                reader.readAsDataURL(file);
             }
         });
 
@@ -1316,8 +1349,13 @@
                 savedState.sectionOrder.push(sec.id);
             });
 
-            localStorage.setItem('dorothy_admin_state', JSON.stringify(savedState));
-            showToast("모든 공간 디자인 변경사항이 브라우저 캐시에 영구 저장되었습니다.", "success");
+            try {
+                localStorage.setItem('dorothy_admin_state', JSON.stringify(savedState));
+                showToast("모든 공간 디자인 변경사항이 브라우저 캐시에 영구 저장되었습니다.", "success");
+            } catch (error) {
+                console.error("Storage Error:", error);
+                showToast("저장 한도를 초과했습니다. 교체된 이미지 중 일부가 너무 고용량일 수 있습니다.", "error");
+            }
         }
 
         // Load and compile changes on window boot
